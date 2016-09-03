@@ -31,10 +31,14 @@ public class Main {
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");
 
-     get("/hello", (req, res) -> {
+      
+      get("/hello", (req, res) -> {
       RelativisticModel.select();
-      Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
-      return "E=mc^2: 12 GeV = " + m.toString();
+
+      String energy = System.getenv().get("ENERGY");
+
+      Amount<Mass> m = Amount.valueOf(energy).to(KILOGRAM);
+      return "E=mc^2: " + energy + " = " + m.toString();
     });
 
     get("/", (request, response) -> {
